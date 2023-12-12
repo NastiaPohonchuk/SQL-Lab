@@ -30,7 +30,7 @@ FROM product
 WHERE (category = 'Desktops' OR category = 'AIOs')
       AND (product_description LIKE '%512GB%' OR product_description LIKE '%1TB%');
 
-Task 6
+Task 7
 SELECT *
 FROM invoice
 WHERE customer_id IS NULL;
