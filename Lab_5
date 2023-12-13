@@ -39,36 +39,29 @@ WHERE
 ORDER BY
     orders.orders_id;
 -- task 3
-select    
- customer_id AS 'Customer ID',
-    last_name AS 'Last Name',
-    first_name AS 'First Name',
-    invoice_id AS 'Invoice ID',
-    transaction_moment AS 'Transaction Moment'
-    from
-(SELECT
-    c.customer_id ,
-    c.last_name,
-    c.first_name,
-    i.invoice_id,
-    i.transaction_moment
+SELECT
+    c.customer_id AS 'Customer ID',
+    c.last_name AS 'Last Name',
+    c.first_name AS 'First Name',
+    i.invoice_id AS 'Invoice ID',
+    i.transaction_moment AS 'Transaction Moment'
 FROM
     customer c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 LEFT JOIN invoice i ON o.invoice_id = i.invoice_id
 UNION
 SELECT
-    c.customer_id ,
-    c.last_name ,
-    c.first_name,
-    i.invoice_id,
-    i.transaction_moment
+    c.customer_id AS 'Customer ID',
+    c.last_name AS 'Last Name',
+    c.first_name AS 'First Name',
+    i.invoice_id AS 'Invoice ID',
+    i.transaction_moment AS 'Transaction Moment'
 FROM
     customer c
 RIGHT JOIN orders o ON c.customer_id = o.customer_id
 RIGHT JOIN invoice i ON o.invoice_id = i.invoice_id
 WHERE
-    c.customer_id IS NULL) b
+    c.customer_id IS NULL
 ORDER BY
-    invoice_id
+'Invoice ID'
     
