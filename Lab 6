@@ -23,17 +23,17 @@ SELECT
     invoice.transaction_moment AS 'Transaction moment',
     customer.last_name AS 'Customer last name',
     customer.first_name AS 'Customer first name',
-    employees.last_name AS 'Employee last name',
-    employees.first_name AS 'Employee first name'
+    employee.last_name AS 'Employee last name',
+    employee.first_name AS 'Employee first name'
 FROM
     orders
 JOIN product ON orders.product_id = product.product_id
 JOIN invoice ON orders.invoice_id = invoice.invoice_id
 JOIN customer ON orders.customer_id = customer.customer_id
-JOIN employees ON orders.employee_id = employees.employee_id
-JOIN departments ON employees.department_id = departments.department_id
+JOIN employee ON orders.employee_id = employee.employee_id
+JOIN department ON employee.department_id = department.department_id
 WHERE
-    departments.department_name = 'Mercury'
+    department.department_name = 'Mercury'
     AND invoice.transaction_moment BETWEEN '2023-07-01' AND '2023-10-01'
 ORDER BY
     orders.orders_id;
@@ -45,7 +45,7 @@ SELECT
     i.invoice_id AS 'Invoice ID',
     i.transaction_moment AS 'Transaction Moment'
 FROM
-    customers c
+    customer c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 LEFT JOIN invoice i ON o.invoice_id = i.invoice_id
 UNION
@@ -56,10 +56,10 @@ SELECT
     i.invoice_id AS 'Invoice ID',
     i.transaction_moment AS 'Transaction Moment'
 FROM
-    customers c
+    customer c
 RIGHT JOIN orders o ON c.customer_id = o.customer_id
 RIGHT JOIN invoice i ON o.invoice_id = i.invoice_id
 WHERE
     c.customer_id IS NULL
 ORDER BY
-    i.invoice_id;
+    'Invoice ID';
