@@ -1,0 +1,65 @@
+-- task 1
+SELECT
+    orders.orders_id AS 'Orders ID',
+    product.product_name AS 'Product name',
+    product.category AS 'Product category',
+    invoice.invoice_id AS 'Invoice ID',
+    invoice.transaction_moment AS 'Transaction moment',
+    customer.last_name AS 'Customer last name',
+    customer.first_name AS 'Customer first name'
+FROM
+    orders
+JOIN product ON orders.product_id = product.product_id
+JOIN invoice ON orders.invoice_id = invoice.invoice_id
+JOIN customer ON orders.customer_id = customer.customer_id
+ORDER BY
+    orders.orders_id;
+--  task 2
+SELECT
+    orders.orders_id AS 'Orders ID',
+    product.product_name AS 'Product name',
+    product.category AS 'Product category',
+    invoice.invoice_id AS 'Invoice ID',
+    invoice.transaction_moment AS 'Transaction moment',
+    customer.last_name AS 'Customer last name',
+    customer.first_name AS 'Customer first name',
+    employees.first_name AS 'Employee first name',
+    employees.last_name AS 'Employee last name'
+FROM
+    orders
+JOIN product ON orders.product_id = product.product_id
+JOIN invoice ON orders.invoice_id = invoice.invoice_id
+JOIN customer ON orders.customer_id = customer.customer_id
+JOIN employees ON orders.employee_id = employees.employee_id
+JOIN departments ON employees.department_id = departments.department_id
+WHERE
+    departments.department_name = 'Mercury'
+    AND invoice.transaction_moment BETWEEN '2023-07-01' AND '2023-10-01'
+ORDER BY
+    orders.orders_id;
+-- task 3
+SELECT
+    c.customer_id AS 'Customer ID',
+    c.last_name AS 'Last Name',
+    c.first_name AS 'First Name',
+    i.invoice_id AS 'Invoice ID',
+    i.transaction_moment AS 'Transaction Moment'
+FROM
+    customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+LEFT JOIN invoice i ON o.invoice_id = i.invoice_id
+UNION
+SELECT
+    c.customer_id AS 'Customer ID',
+    c.last_name AS 'Last Name',
+    c.first_name AS 'First Name',
+    i.invoice_id AS 'Invoice ID',
+    i.transaction_moment AS 'Transaction Moment'
+FROM
+    customers c
+RIGHT JOIN orders o ON c.customer_id = o.customer_id
+RIGHT JOIN invoice i ON o.invoice_id = i.invoice_id
+WHERE
+    c.customer_id IS NULL
+ORDER BY
+    COALESCE(i.invoice_id, o.invoice_id);
